@@ -1,0 +1,22 @@
+{
+  "name": "flow.launcher.plugin.formatter",
+  "version": "0.0.1",
+  "main": "dist/main.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint"
+  },
+  "keywords": [
+    "Flow Launcher",
+    "Formatter",
+    "Plugin"
+  ],
+  "author": "Koalhack",
+  "license": "MIT",
+  "description": "Flow Launcher plugin to easily format text for multiples purposes.",
+  "devDependencies": {
+    "@types/node": "^22.13.10",
+    "typescript": "^5.8.2"
+  }
+}

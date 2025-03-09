@@ -1,0 +1,12 @@
+{
+  "ID": "32982da2-1056-4626-aaf3-08d42ec5ea66",
+  "ActionKeyword": "ft",
+  "Name": "Text Formatter",
+  "Description": "Format any text (json, csv, etc.) to another and more",
+  "Author": "Koalhack",
+  "Version": "0.0.1",
+  "Language": "javascript",
+  "Website": "https://github.com/Koalhack/Flow.Launcher.Plugin.Formatter",
+  "ExecuteFileName": "dist\\main.js",
+  "IcoPath": "icon\\app.png"
+}
