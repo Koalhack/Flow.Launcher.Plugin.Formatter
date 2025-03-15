@@ -4,6 +4,7 @@ import type { Metas } from './types.js';
 import { Script } from './models/Script.js';
 import { defaultScriptPath, metaEndTerm, metaStartTerm } from './const.js';
 import { matchesMetas, stringRange } from './utils/utils.js';
+import { ScriptExecution } from './models/ScriptExecution.js';
 
 export class ScriptManager {
   scripts: Script[];
@@ -68,5 +69,11 @@ export class ScriptManager {
     );
 
     return results.sort(metaNameSort);
+  }
+
+  runScript(script: Script, text: string) {
+    let scriptExecution = new ScriptExecution({ text: text });
+    script.run(scriptExecution);
+    return scriptExecution.text;
   }
 }

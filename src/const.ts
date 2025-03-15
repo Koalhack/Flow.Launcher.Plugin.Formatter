@@ -17,3 +17,9 @@ export const defaultScriptPath = path.join(__rootpath, 'src', 'scripts/');
 
 export const metaStartTerm = '/**';
 export const metaEndTerm = '**/';
+
+// ┌            ┐
+// │   Script   │
+// └            ┘
+
+export const MAIN_FUNCTION_EXEC = 'main(this)';
