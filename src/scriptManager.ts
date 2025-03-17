@@ -2,7 +2,12 @@ import fs from 'node:fs';
 import path from 'node:path';
 import type { Metas } from './types.js';
 import { Script, type ScriptArguments } from './models/Script.js';
-import { defaultScriptPath, metaEndTerm, metaStartTerm } from './const.js';
+import {
+  defaultScriptPath,
+  metaEndTerm,
+  metaStartTerm,
+  NOTIFY
+} from './const.js';
 import { matchesMetas, stringRange } from './utils/utils.js';
 import { ScriptExecution } from './models/ScriptExecution.js';
 import { Clipboard } from './utils/clipboard.js';
@@ -100,7 +105,8 @@ export class ScriptManager {
 
       //TODO: Possibly change location in futur
       // Notify User from change
-      FlowLauncher.showMessage('test');
+      const { title, subtitle } = NOTIFY.clipboard;
+      FlowLauncher.showMessage(title, subtitle);
     }
   }
 }

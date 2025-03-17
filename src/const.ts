@@ -1,5 +1,6 @@
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
+import clipboard from 'clipboardy';
 
 // ┌           ┐
 // │   Paths   │
@@ -23,3 +24,14 @@ export const metaEndTerm = '**/';
 // └            ┘
 
 export const MAIN_FUNCTION_EXEC = 'main(this)';
+
+// ┌                   ┐
+// │   Notifications   │
+// └                   ┘
+
+export const NOTIFY = {
+  clipboard: {
+    title: 'Clipboard value change',
+    subtitle: 'You have a new value in your clipboard'
+  }
+};
