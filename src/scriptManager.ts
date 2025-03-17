@@ -1,10 +1,12 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import type { Metas } from './types.js';
-import { Script } from './models/Script.js';
+import { Script, type ScriptArguments } from './models/Script.js';
 import { defaultScriptPath, metaEndTerm, metaStartTerm } from './const.js';
 import { matchesMetas, stringRange } from './utils/utils.js';
 import { ScriptExecution } from './models/ScriptExecution.js';
+import { Clipboard } from './utils/clipboard.js';
+import { FlowLauncher } from './utils/flowLauncher.js';
 
 export class ScriptManager {
   scripts: Script[];
@@ -15,6 +17,7 @@ export class ScriptManager {
 
   init() {
     this.loadDefaultScripts();
+    //TODO: Manage users scripts
   }
 
   loadDefaultScripts() {
@@ -71,9 +74,33 @@ export class ScriptManager {
     return results.sort(metaNameSort);
   }
 
+  runScriptM(scriptArguments: ScriptArguments) {
+    // Get clipboard content
+    const clip = Clipboard.get();
+
+    const script = new Script(scriptArguments);
+
+    const result = this.runScript(script, clip);
+
+    this.replaceText(result, clip);
+  }
+
   runScript(script: Script, text: string) {
     let scriptExecution = new ScriptExecution({ text: text });
+
     script.run(scriptExecution);
-    return scriptExecution.text;
+
+    return scriptExecution.text ?? '';
+  }
+
+  replaceText(newText: string, originText: string) {
+    if (newText !== originText) {
+      // Update clipboard with new value
+      Clipboard.copy(newText);
+
+      //TODO: Possibly change location in futur
+      // Notify User from change
+      FlowLauncher.showMessage('test');
+    }
   }
 }

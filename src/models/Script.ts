@@ -3,7 +3,7 @@ import type { Metas } from '../types.js';
 import { MAIN_FUNCTION_EXEC } from '../const.js';
 import type { ScriptExecution } from './ScriptExecution.js';
 
-type ScriptArguments = {
+export type ScriptArguments = {
   script: string;
   parameters: Metas;
   builtIn: boolean;
@@ -12,6 +12,10 @@ type ScriptArguments = {
 export class Script {
   isBuiltInt: boolean;
   scriptCode: string;
+
+  //TODO: Add icon support
+
+  metas: Metas;
 
   name: string | undefined;
   desc: string | undefined;
@@ -27,6 +31,8 @@ export class Script {
     this.isBuiltInt = builtIn;
 
     // Define metas
+    this.metas = parameters;
+
     this.name = parameters['name'] as string;
     this.desc = parameters['description'] as string;
     this.tags = (parameters['tags'] as string).split(TAGS_SEPARATOR);

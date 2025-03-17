@@ -1,8 +1,11 @@
-import { FlowLauncher } from '../utils/flowLauncher.js';
-
 type ScriptExecutionArguments = {
   text: string;
 };
+
+// ╭────────────────────────────────────────────────────────────────────────────────╮
+// │   TODO: postInfo and postError functions (notify user)                         │
+// │   TODO: insert function (clipboard + new value)                                │
+// ╰────────────────────────────────────────────────────────────────────────────────╯
 
 export class ScriptExecution {
   fullText: string;

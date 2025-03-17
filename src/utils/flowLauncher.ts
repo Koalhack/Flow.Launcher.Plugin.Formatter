@@ -12,7 +12,13 @@ export const FlowLauncher = {
       Subtitle: script.desc ?? 'No description',
       JsonRPCAction: {
         method: 'run',
-        parameters: [script.name ?? '']
+        parameters: [
+          JSON.stringify({
+            script: script.scriptCode,
+            parameters: script.metas,
+            builtIn: script.isBuiltInt
+          })
+        ]
       },
       IcoPath: 'icon\\app.png',
       score: 0
