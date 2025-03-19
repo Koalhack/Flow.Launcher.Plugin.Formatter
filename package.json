@@ -4,8 +4,7 @@
   "main": "dist/main.js",
   "type": "module",
   "scripts": {
-    "build": "tsc",
-    "lint": "eslint"
+    "build": "tsc"
   },
   "keywords": [
     "Flow Launcher",
