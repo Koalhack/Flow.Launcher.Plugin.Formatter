@@ -6,7 +6,8 @@ import {
   defaultScriptPath,
   metaEndTerm,
   metaStartTerm,
-  NOTIFY
+  NOTIFY,
+  SCRIPT_EXTENSION
 } from './const.js';
 import { matchesMetas, stringRange } from './utils/utils.js';
 import { ScriptExecution } from './models/ScriptExecution.js';
@@ -28,7 +29,7 @@ export class ScriptManager {
   loadDefaultScripts() {
     let scriptsFilenames = fs
       .readdirSync(defaultScriptPath)
-      .filter(file => file.includes('.js'));
+      .filter(file => file.match(SCRIPT_EXTENSION));
 
     scriptsFilenames.forEach(filename => {
       this.loadScript(path.join(defaultScriptPath, filename));

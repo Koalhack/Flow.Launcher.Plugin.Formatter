@@ -23,6 +23,7 @@ export const metaEndTerm = '**/';
 // │   Script   │
 // └            ┘
 
+export const SCRIPT_EXTENSION = /\.js$/g;
 export const MAIN_FUNCTION_EXEC = 'main(this)';
 
 // ┌                   ┐
