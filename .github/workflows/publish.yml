@@ -1,0 +1,41 @@
+name: publish
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths-ignore:
+      - .github/workflows/*
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '23.10.0'
+      - name: get version
+        id: version
+        uses: notiz-dev/github-action-json-property@release
+        with:
+          path: 'plugin.json'
+          prop_path: 'Version'
+      - run: echo ${{steps.version.outputs.prop}}
+      - name: Install dependencies
+        run: npm install
+      - name: Build
+        run: |
+          npm run build
+          npm prune --omit=dev
+      - name: Package
+        run: zip -r Flow.Launcher.Plugin.Formatter.zip . -x '*.git*' -x 'src/*' -x 'README.md' -x 'tsconfig.json' -x '.prettierrc'
+      - name: Publish
+        uses: softprops/action-gh-release@v2
+        with:
+          files: 'Flow.Launcher.Plugin.Formatter.zip'
+          tag_name: 'v${{steps.version.outputs.prop}}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
