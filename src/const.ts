@@ -9,7 +9,16 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const __rootpath = path.resolve(__dirname, '..');
 
+// ─── Scripts ─────────────────────────────────────────────────────────────────────────
+
 export const defaultScriptPath = path.join(__rootpath, 'dist', 'scripts/');
+
+// ─── Icon ────────────────────────────────────────────────────────────────────────────
+
+export const ICON = {
+  app: path.join(__rootpath, 'icon', 'app.png'),
+  error: path.join(__rootpath, 'icon', 'error.png')
+};
 
 // ┌           ┐
 // │   Metas   │

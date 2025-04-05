@@ -3,6 +3,7 @@ import path from 'node:path';
 import type { Metas } from './types.js';
 import { Script, type ScriptArguments } from './models/Script.js';
 import { ScriptExecution } from './models/ScriptExecution.js';
+import { ScriptError } from './models/ScriptError.js';
 import {
   defaultScriptPath,
   metaEndTerm,
@@ -13,12 +14,15 @@ import {
 import { matchesObject, sortByProperty, stringRange } from './utils/utils.js';
 import { Clipboard } from './utils/clipboard.js';
 import { FlowLauncher } from './utils/flowLauncher.js';
+import { ensureError } from './utils/error.js';
 
 export class ScriptManager {
   scripts: Script[];
+  scriptsError: ScriptError[];
 
   constructor() {
     this.scripts = [];
+    this.scriptsError = [];
   }
 
   init() {
@@ -50,8 +54,13 @@ export class ScriptManager {
       });
 
       this.scripts.push(scriptObject);
-    } catch (e) {
-      console.error(`Unable to load ${path}, Error: ${e}`);
+    } catch (err) {
+      const error = ensureError(err);
+      const scriptErrorObject = new ScriptError({
+        file: path,
+        error: error
+      });
+      this.scriptsError.push(scriptErrorObject);
     }
   }
 

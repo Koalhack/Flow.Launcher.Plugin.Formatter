@@ -14,11 +14,16 @@ export class FlowViewController {
 
   // ─── METHOD: query ───────────────────────────────────────────────────────────────────
   queryScript(parameter: string = '') {
-    const results = this.scriptManager.search(parameter ?? '');
-    const resultsFmt = FlowLauncher.searchResultFormat(results);
+    const normalizeQuery = parameter.toLowerCase();
+
+    const errorResults = this.scriptManager.scriptsError;
+    const errorsFMT = FlowLauncher.searchScriptErrorResultFMT(errorResults);
+
+    const scriptResults = this.scriptManager.search(normalizeQuery);
+    const scriptsFMT = FlowLauncher.searchScriptResultFMT(scriptResults);
 
     // Send result to Flow laucher via JsonRPC
-    sendJsonRpcRequest({ result: resultsFmt });
+    sendJsonRpcRequest({ result: [...errorsFMT, ...scriptsFMT] });
   }
 
   // ─── METHOD: run ─────────────────────────────────────────────────────────────────────
