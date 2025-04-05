@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import type { Metas } from './types.js';
 import { Script, type ScriptArguments } from './models/Script.js';
+import { ScriptExecution } from './models/ScriptExecution.js';
 import {
   defaultScriptPath,
   metaEndTerm,
@@ -9,8 +10,7 @@ import {
   NOTIFY,
   SCRIPT_EXTENSION
 } from './const.js';
-import { matchesMetas, stringRange } from './utils/utils.js';
-import { ScriptExecution } from './models/ScriptExecution.js';
+import { matchesObject, sortByProperty, stringRange } from './utils/utils.js';
 import { Clipboard } from './utils/clipboard.js';
 import { FlowLauncher } from './utils/flowLauncher.js';
 
@@ -59,25 +59,23 @@ export class ScriptManager {
     const QUERY_CHAR_LIMIT = 20;
     const ALL_SCRIPTS_CHAR = '*';
     const QUERIES_SEPARATOR = ' ';
-
-    const metaNameSort = (a: Script, b: Script): 1 | -1 =>
-      (a.name || '') < (b.name || '') ? 1 : -1;
+    const SORT_PROPERTY = 'name';
 
     if (query.length > QUERY_CHAR_LIMIT) return [];
 
-    if (query === ALL_SCRIPTS_CHAR) return this.scripts.sort(metaNameSort);
+    if (query === ALL_SCRIPTS_CHAR)
+      return sortByProperty(this.scripts, SORT_PROPERTY);
 
-    const normalizeQuery = query.toLowerCase();
-    const queries = new Set(normalizeQuery.split(QUERIES_SEPARATOR));
+    const queries = query.split(QUERIES_SEPARATOR);
 
     const results = this.scripts.filter(script =>
-      matchesMetas(Array.from(queries), {
+      matchesObject(queries, {
         name: script.name,
         tags: script.tags
       })
     );
 
-    return results.sort(metaNameSort);
+    return sortByProperty(results, SORT_PROPERTY);
   }
 
   runScriptM(scriptArguments: ScriptArguments) {
