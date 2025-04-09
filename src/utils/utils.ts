@@ -12,7 +12,7 @@ export function stringRange(str: string, start: string, end: string): string {
   let endPos = str.indexOf(end);
 
   if (startPos === NOT_FOUND || endPos === NOT_FOUND)
-    throw new Error('Search terms not found');
+    throw new Error(`Search terms not found (${start} ${end})`);
 
   return str.substring(str.indexOf(start) + start.length, str.indexOf(end));
 }
