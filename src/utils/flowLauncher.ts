@@ -32,12 +32,25 @@ export const FlowLauncher = {
    * @param scriptErrors list of scripts errors to format.
    */
   searchScriptErrorResultFMT: function (scriptErrors: ScriptError[]): Result[] {
+    const REPLACER = null;
+    const SPACE = 4;
     return scriptErrors.map(scriptError => ({
       Title: `Unable to load ${scriptError.filename ?? 'No filename'}`,
       Subtitle: `Error: ${scriptError.err.message ?? 'No error'}`,
       JsonRPCAction: {
-        method: '', // TODO: add script error function
-        parameters: []
+        method: 'error',
+        parameters: [
+          JSON.stringify(
+            {
+              filename: scriptError.filename,
+              name: scriptError.err.name,
+              message: scriptError.err.message,
+              stack: scriptError.err.stack
+            },
+            REPLACER,
+            SPACE
+          )
+        ]
       },
       IcoPath: ICON.error,
       score: 0

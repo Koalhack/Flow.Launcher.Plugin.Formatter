@@ -31,4 +31,9 @@ export class FlowViewController {
     const scriptArguments = JSON.parse(parameters);
     this.scriptManager.runScriptM(scriptArguments);
   }
+
+  // ─── METHOD: error ───────────────────────────────────────────────────────────────────
+  displaySelectedUserError(parameters: string) {
+    this.scriptManager.displayUserError(parameters);
+  }
 }

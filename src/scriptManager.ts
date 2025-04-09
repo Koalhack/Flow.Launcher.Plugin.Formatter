@@ -87,6 +87,21 @@ export class ScriptManager {
     return sortByProperty(results, SORT_PROPERTY);
   }
 
+  displayUserError(errorObjectString: string) {
+    // TODO: Better origanisation for all patterns (regex, escpape char)
+    const ESCAPE_LINE_FEED = /\\n/g;
+    const LINE_FEED = '\n';
+    const AT_PATTERN = /\s*\sat\s.[^"]*/g;
+    const NOTHING = ' ';
+
+    let prettyErrorString = errorObjectString.replace(
+      ESCAPE_LINE_FEED,
+      LINE_FEED
+    );
+    prettyErrorString = prettyErrorString.replace(AT_PATTERN, NOTHING);
+    this.replaceText(prettyErrorString);
+  }
+
   runScriptM(scriptArguments: ScriptArguments) {
     // Get clipboard content
     const clip = Clipboard.get();
@@ -98,7 +113,7 @@ export class ScriptManager {
     this.replaceText(result, clip);
   }
 
-  runScript(script: Script, text: string) {
+  runScript(script: Script, text: string): string {
     let scriptExecution = new ScriptExecution({ text: text });
 
     script.run(scriptExecution);
@@ -106,7 +121,7 @@ export class ScriptManager {
     return scriptExecution.text ?? '';
   }
 
-  replaceText(newText: string, originText: string) {
+  replaceText(newText: string, originText: string = '') {
     if (newText !== originText) {
       // Update clipboard with new value
       Clipboard.copy(newText);

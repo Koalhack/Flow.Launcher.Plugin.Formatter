@@ -19,3 +19,7 @@ if (method === 'query') {
 if (method === 'run') {
   flowViewController.runSelectedScript(parameters[0] as string);
 }
+
+if (method === 'error') {
+  flowViewController.displaySelectedUserError(parameters[0] as string);
+}
