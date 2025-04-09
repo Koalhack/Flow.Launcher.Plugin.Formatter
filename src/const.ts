@@ -12,6 +12,7 @@ const __rootpath = path.resolve(__dirname, '..');
 // ─── Scripts ─────────────────────────────────────────────────────────────────────────
 
 export const defaultScriptPath = path.join(__rootpath, 'dist', 'scripts/');
+export const userScriptPath = path.join(__rootpath, 'Scripts/');
 
 // ─── Icon ────────────────────────────────────────────────────────────────────────────
 

@@ -9,7 +9,8 @@ import {
   metaEndTerm,
   metaStartTerm,
   NOTIFY,
-  SCRIPT_EXTENSION
+  SCRIPT_EXTENSION,
+  userScriptPath
 } from './const.js';
 import { matchesObject, sortByProperty, stringRange } from './utils/utils.js';
 import { Clipboard } from './utils/clipboard.js';
@@ -27,7 +28,7 @@ export class ScriptManager {
 
   init() {
     this.loadDefaultScripts();
-    //TODO: Manage users scripts
+    this.loadUserScripts();
   }
 
   loadDefaultScripts() {
@@ -36,11 +37,21 @@ export class ScriptManager {
       .filter(file => file.match(SCRIPT_EXTENSION));
 
     scriptsFilenames.forEach(filename => {
-      this.loadScript(path.join(defaultScriptPath, filename));
+      this.loadScript(path.join(defaultScriptPath, filename), true);
     });
   }
 
-  loadScript(path: string) {
+  loadUserScripts() {
+    let scriptsFilenames = fs
+      .readdirSync(userScriptPath)
+      .filter(file => file.match(SCRIPT_EXTENSION));
+
+    scriptsFilenames.forEach(filename => {
+      this.loadScript(path.join(userScriptPath, filename), false);
+    });
+  }
+
+  loadScript(path: string, builtIn: boolean) {
     try {
       let script: string = fs.readFileSync(path).toString();
 
@@ -50,7 +61,7 @@ export class ScriptManager {
       let scriptObject = new Script({
         script: script,
         parameters: jsonMeta,
-        builtIn: true
+        builtIn: builtIn
       });
 
       this.scripts.push(scriptObject);
