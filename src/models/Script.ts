@@ -2,6 +2,7 @@ import vm from 'node:vm';
 import type { Metas } from '../types.js';
 import { MAIN_FUNCTION_EXEC } from '../const.js';
 import type { ScriptExecution } from './ScriptExecution.js';
+import { ensureError } from '../utils/error.js';
 
 export type ScriptArguments = {
   script: string;
@@ -38,8 +39,19 @@ export class Script {
     this.tags = (parameters['tags'] as string).split(TAGS_SEPARATOR);
     this.bias = parameters['bias'] as number;
 
-    // Init script
-    this.vmScript = new vm.Script(`${this.scriptCode}; ${MAIN_FUNCTION_EXEC}`);
+    // Init Script
+    this.vmScript = this.evaluate();
+  }
+
+  evaluate() {
+    try {
+      return new vm.Script(`${this.scriptCode}; ${MAIN_FUNCTION_EXEC}`, {
+        filename: this.name
+      });
+    } catch (err) {
+      const error = ensureError(err);
+      throw error;
+    }
   }
 
   run(context: ScriptExecution) {
