@@ -33,7 +33,7 @@ jobs:
           npm run build
           npm prune --omit=dev
       - name: Package
-        run: zip -r Flow.Launcher.Plugin.Formatter.zip . -x '*.git*' -x 'src/*' -x 'README.md' -x 'tsconfig.json' -x '.prettierrc'
+        run: zip -r Flow.Launcher.Plugin.Formatter.zip . -x '*.git*' -x 'src/*' -x 'docs/*' -x 'README.md' -x 'tsconfig.json' -x '.prettierrc'
       - name: Publish
         uses: softprops/action-gh-release@v2
         with:
