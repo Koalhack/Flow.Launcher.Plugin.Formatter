@@ -2,6 +2,7 @@ import process from 'node:process';
 import type { Arguments } from './types.js';
 import { ScriptManager } from './scriptManager.js';
 import { FlowViewController } from './controllers/FlowViewController.js';
+import { NotificationManagerController } from './controllers/NotificationManagerController.js';
 
 const args: Arguments = JSON.parse(process.argv[2] ?? '{}');
 const { method, parameters } = args;

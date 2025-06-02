@@ -16,14 +16,20 @@ import { matchesObject, sortByProperty, stringRange } from './utils/utils.js';
 import { Clipboard } from './utils/clipboard.js';
 import { FlowLauncher } from './utils/flowLauncher.js';
 import { ensureError } from './utils/error.js';
+import { NotificationManagerController } from './controllers/NotificationManagerController.js';
 
 export class ScriptManager {
   scripts: Script[];
   scriptsError: ScriptError[];
 
+  //WARN: possibly change in futur
+  notifier: NotificationManagerController;
+
   constructor() {
     this.scripts = [];
     this.scriptsError = [];
+
+    this.notifier = new NotificationManagerController();
   }
 
   init() {
@@ -122,10 +128,16 @@ export class ScriptManager {
     const result = this.runScript(script, clip);
 
     this.replaceText(result, clip);
+
+    //TODO: Possibly change location in futur
+    this.notifier.displayAll();
   }
 
   runScript(script: Script, text: string): string {
-    let scriptExecution = new ScriptExecution({ text: text });
+    let scriptExecution = new ScriptExecution({
+      text: text,
+      notifier: this.notifier
+    });
 
     script.run(scriptExecution);
 
@@ -139,8 +151,7 @@ export class ScriptManager {
 
       //TODO: Possibly change location in futur
       // Notify User from change
-      const { title, subtitle } = NOTIFY.clipboard;
-      FlowLauncher.showMessage(title, subtitle);
+      this.notifier.add('MESSAGE', NOTIFY.clipboard);
     }
   }
 }

@@ -18,6 +18,21 @@ export type Result = {
   score?: number;
 };
 
+// ┌                   ┐
+// │   Notifications   │
+// └                   ┘
+
+export type NotificationType = 'MESSAGE' | 'INFO' | 'ERROR';
+
+export type NotificationItem = {
+  text: string;
+  source: string;
+};
+
+export type Notification = {
+  [key in NotificationType]?: NotificationItem[];
+};
+
 /////////////////////
 //      Metas      //
 /////////////////////
