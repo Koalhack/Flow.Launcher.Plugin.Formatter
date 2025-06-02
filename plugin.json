@@ -4,7 +4,7 @@
   "Name": "Text Formatter",
   "Description": "Retrieve text from the clipboard and edit it using several custom scripts",
   "Author": "Koalhack",
-  "Version": "0.0.1",
+  "Version": "0.1.0",
   "Language": "javascript",
   "Website": "https://github.com/Koalhack/Flow.Launcher.Plugin.Formatter",
   "ExecuteFileName": "dist\\main.js",
