@@ -40,8 +40,9 @@ export const MAIN_FUNCTION_EXEC = 'main(this)';
 // └                   ┘
 
 export const NOTIFY = {
+  title: 'Text Formatter',
   clipboard: {
-    title: 'Clipboard value change',
-    subtitle: 'You have a new value in your clipboard'
+    source: 'CLIP',
+    text: 'Clipboard value change'
   }
 };
