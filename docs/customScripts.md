@@ -70,7 +70,7 @@ Script executions objects have a few functions that can be used to present feedb
 
 ##### Messaging
 
-Script execution objects have additional functions to communicate with the user, called `postInfo()` and `postError()`. These functions take in a single string argument, that will be presented in the Boop toolbar.
+Script execution objects have additional functions to communicate with the user, called `postInfo()` and `postError()`. These functions take in a single string argument, that will be presented as a Windows notification.
 
 ```js
 state.postInfo(`${lines.length} lines removed`);
