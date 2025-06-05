@@ -63,3 +63,16 @@ At the moment, Script execution object have only one property to deal with text:
 let text = state.text; // get
 state.text = 'Replace the whole text in your clipboard'; // set
 ```
+
+#### Functions
+
+Script executions objects have a few functions that can be used to present feedback to the user.
+
+##### Messaging
+
+Script execution objects have additional functions to communicate with the user, called `postInfo()` and `postError()`. These functions take in a single string argument, that will be presented in the Boop toolbar.
+
+```js
+state.postInfo(`${lines.length} lines removed`);
+state.postError('Invalid XML');
+```
