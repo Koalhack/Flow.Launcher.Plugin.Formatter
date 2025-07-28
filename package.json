@@ -16,7 +16,7 @@
   "license": "MIT",
   "description": "Flow Launcher plugin to easily format text for multiples purposes.",
   "devDependencies": {
-    "@types/node": "^24.0.7",
+    "@types/node": "^24.1.0",
     "copyfiles": "^2.4.1",
     "typescript": "^5.8.3"
   },
