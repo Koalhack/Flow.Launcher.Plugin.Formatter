@@ -18,7 +18,7 @@
   "devDependencies": {
     "@types/node": "^24.3.0",
     "copyfiles": "^2.4.1",
-    "typescript": "^5.8.3"
+    "typescript": "^5.9.2"
   },
   "dependencies": {
     "clipboardy": "^4.0.0"
