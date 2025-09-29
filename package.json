@@ -21,6 +21,6 @@
     "typescript": "^5.9.2"
   },
   "dependencies": {
-    "clipboardy": "^4.0.0"
+    "clipboardy": "^5.0.0"
   }
 }
